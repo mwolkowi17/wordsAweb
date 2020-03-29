@@ -42,16 +42,24 @@ namespace WordsAWeb.Controllers
             // int testnum = rand.Next(4);
             // int id = testnum + 1;
             // movie = await _context.WordsA.FindAsync(id);
-            if (Ilosc <= 5) { 
+            if (Ilosc < 3) { 
             RandomRoboczy();
             var formularz = searchString;
+                if (Ilosc == 1)
+                {
+                    Wynik = 0;
+                }
+                return View(movie);
             }
             else
             {
+                Ilosc = 0;
                 ViewBag.Koniec = "Koniec";
                 ViewBag.WyswietlWynik = "Twój wynik to: "+ Wynik;
+                return View("Views/Words/End.cshtml");
             }
-            return View(movie);
+                
+
         }
         public async Task<IActionResult> Edit()
         {
@@ -81,6 +89,13 @@ namespace WordsAWeb.Controllers
             }
 
 
+            return View();
+        }
+
+        public async Task<IActionResult> End()
+        {
+            ViewBag.Koniec = "Koniec";
+            ViewBag.WyswietlWynik = "Twój wynik to: " + Wynik;
             return View();
         }
     }
